@@ -1,5 +1,8 @@
 # tech_rush
-This is my git repository 
-<br>
-author - harsh pawar (Hello)
-<br>
+Stock Tracker
+Team name : Celcius
+Team members :
+1.Gargi nemade (Team leader)
+2.Mrunamayee Yewale
+3.Swarali Patil
+4.Harsh Pawar
