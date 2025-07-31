@@ -5,7 +5,7 @@ Team name : Celcius
 <br>
 Team members :
 <br>
-1. Gargi nemade (Team leader)
+1. Gargi Nemade (Team leader)
 <br>
 2. Mrunamayee Yewale
 <br>
