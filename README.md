@@ -1,6 +1,5 @@
 # tech_rush
 Stock Tracker
-<br>
 Team name : Celcius
 <br>
 Team members :
