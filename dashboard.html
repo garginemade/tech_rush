@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stocks Terminal</title>
+  <style>
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+      background: linear-gradient(140deg, #080d18 80%, #0ff3ff33 100%);
+      color: #fff;
+      font-family: 'Orbitron', 'JetBrains Mono', monospace, Arial;
+      letter-spacing: 0.5px;
+    }
+    .grid-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: repeating-linear-gradient(0deg,transparent,transparent 34px,#1e88e555 36px),
+        repeating-linear-gradient(90deg,transparent,transparent 34px,#1e88e555 36px);
+      opacity: 0.11;
+      z-index: -2;
+      pointer-events: none;
+      mix-blend-mode: lighten;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.45rem;
+      font-family: 'Orbitron', 'JetBrains Mono', monospace;
+      color: #0ff3ff;
+      letter-spacing: 5px;
+      text-shadow: 0 0 14px #0ff3ff99, 0 1px 7px #2228;
+      margin: 2rem 0 1.2rem 0;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .panel {
+      max-width: 740px; margin: 0 auto 2.3rem auto;
+      padding: 2.3rem 2rem 2.7rem 2rem;
+      border-radius: 20px;
+      border: 3px solid #12ff7b;
+      background: rgba(10,24,40, 0.96);
+      box-shadow: 0 10px 40px #0ff3ff11, 0 0.5px 0 #fff2;
+      overflow: hidden; position: relative;
+      /* Neon blue side-bar effect */
+    }
+    .panel::before {
+      content: ''; position: absolute; left: -10px; top: 30px; width: 7px; height: 82%; border-radius: 5px;
+      background: linear-gradient(180deg,#0ff3ff 90%,rgba(0,255,255,.2) 100%);
+      filter: blur(2px);
+      box-shadow: 0 0 18px #12ff7b88, 0 0 44px #0ff3ff77;
+      opacity: 0.73;
+      z-index: 2;
+    }
+    table {
+      width: 100%; border-collapse: separate; border-spacing: 0 0.58rem;
+      font-size: 1.16rem;
+      background: none;
+      margin-top: 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    th, td {
+      padding: 1.1rem 0.7rem;
+      text-align: left;
+      background: rgba(31,49,68,0.80);
+      border-radius: 7px;
+      border: none;
+    }
+    th {
+      background: #080d18;
+      color: #0ff3ff;
+      font-size: 1.14rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2.2px;
+      border-bottom: 2.4px solid #12ff7b;
+      box-shadow: 0 2px 10px #0ff3ff44;
+      text-shadow: 0 1px 8px #12ff7b22,0 1px #fff3;
+    }
+    td {
+      color: #fff;
+      font-size: 1.18rem;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      /* Transition for flashes */
+      transition: background 0.21s, color 0.22s, box-shadow 0.21s;
+      position: relative;
+      z-index: 1;
+    }
+    tr {
+      transition: box-shadow 0.34s;
+    }
+    tr:hover td {
+      background: #131b3e;
+      color: #12ff7b;
+      box-shadow: 0 4px 15px #0ff3ff66;
+    }
+    .price-up {
+      color: #12ff7b;
+      text-shadow: 0 2px 10px #12ff7b70, 0 0px 6px #fff4;
+      font-weight: 950;
+    }
+    .price-down {
+      color: #ff2255;
+      text-shadow: 0 2px 10px #ff225470, 0 0px 6px #fff4;
+      font-weight: 950;
+    }
+    .stock-symbol {
+      font-family: 'Orbitron', monospace;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 1.2em;
+      color: #0ff3ff;
+      text-shadow: 0 0 12px #12ff7b54, 0 1px 3px #0ff3ff;
+    }
+    /* Flash effects for extreme change */
+    .flash-green { background: #28fa482f !important; animation: flashrowg 0.35s linear; }
+    .flash-red   { background: #ff496a31 !important; animation: flashrowr 0.35s linear; }
+    @keyframes flashrowg { 0% {filter: brightness(1.8);} 100% {filter: brightness(1);} }
+    @keyframes flashrowr { 0% {filter: brightness(1.8);} 100% {filter: brightness(1);} }
+    @media (max-width: 650px) {
+      .panel { padding: 0.9rem 0.24rem; }
+      h1 { font-size: 1.1rem !important; }
+      td,th { padding: 0.45rem 0.17rem; font-size: 0.98em;}
+    }
+  </style>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <h1>STOCKS TERMINAL</h1>
+  <div class="panel">
+    <table id="stock-table">
+      <thead>
+        <tr>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Change %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- filled via JS -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    // Faux data: for production, fetch from API!
+    let stockData = [
+      { symbol: 'AAPL', price: 173.20, change: 1.2 },
+      { symbol: 'GOOGL', price: 2849.32, change: -0.5 },
+      { symbol: 'MSFT', price: 299.01, change: 0.8 },
+      { symbol: 'TSLA', price: 720.45, change: -2.3 },
+      { symbol: 'NVDA', price: 1050.12, change: 5.1 },
+      { symbol: 'AMZN', price: 3703.35, change: -1.7 }
+    ];
+
+    function rowFlash(tr, type) {
+      tr.classList.add(type === 'up' ? 'flash-green' : 'flash-red');
+      setTimeout(() => tr.classList.remove('flash-green','flash-red'), 340);
+    }
+
+    function renderStocks(stocks, prev) {
+      const tbody = document.querySelector('#stock-table tbody');
+      tbody.innerHTML = '';
+      stocks.forEach((stock, i) => {
+        const tr = document.createElement('tr');
+        const changeClass = stock.change >= 0 ? 'price-up' : 'price-down';
+        tr.innerHTML = `
+          <td><span class="stock-symbol">${stock.symbol}</span></td>
+          <td>\$${stock.price.toFixed(2)}</td>
+          <td class="${changeClass}">${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}%</td>
+        `;
+        // Flash effect for large swing (> 2.8% up or down)
+        if (Math.abs(stock.change) > 2.8 && prev && Math.abs(stock.change-prev[i].change) > 0.5) {
+          rowFlash(tr, stock.change > 0 ? 'up' : 'down');
+        }
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Show first render
+    renderStocks(stockData);
+
+    // Simulate "intimidating" action: randomly shake the market!
+    setInterval(() => {
+      const prev = JSON.parse(JSON.stringify(stockData));
+      stockData = stockData.map(stock => {
+        let delta = (Math.random() - 0.5) * 4.3; // random high drama
+        let newPrice = +(stock.price + delta).toFixed(2);
+        // Percent change = (new - old) / old * 100
+        let pctChange = +(((newPrice - stock.price) / stock.price) * 100 + stock.change).toFixed(2);
+        return { ...stock, price: newPrice, change: pctChange };
+      });
+      renderStocks(stockData, prev);
+    }, 1900); // ~every 1.9 seconds
+  </script>
+</body>
+</html>
