@@ -4,7 +4,7 @@ import { TrendingUp, TrendingDown, DollarSign, BarChart3, Eye, Plus, X } from 'l
 import { fetchStockQuote } from '../services/stockAPI';
 
 const Dashboard = () => {
-  const [watchlist, setWatchlist] = useState(['AAPL', 'GOOGL', 'MSFT', 'TSLA', 'AMZN']);
+  const [watchlist, setWatchlist] = useState(['Apple', 'Google', 'Microsoft', 'Tesla', 'Amazon']);
   const [watchlistData, setWatchlistData] = useState({});
   const [loading, setLoading] = useState(false);
   const [newSymbol, setNewSymbol] = useState('');
