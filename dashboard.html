@@ -40,7 +40,7 @@
       background: rgba(10,24,40, 0.96);
       box-shadow: 0 10px 40px #0ff3ff11, 0 0.5px 0 #fff2;
       overflow: hidden; position: relative;
-      /* Neon blue side-bar effect */
+      /* blue side-bar */
     }
     .panel::before {
       content: ''; position: absolute; left: -10px; top: 30px; width: 7px; height: 82%; border-radius: 5px;
@@ -80,7 +80,7 @@
       font-size: 1.18rem;
       font-weight: 700;
       letter-spacing: 1.4px;
-      /* Transition for flashes */
+     
       transition: background 0.21s, color 0.22s, box-shadow 0.21s;
       position: relative;
       z-index: 1;
@@ -111,7 +111,7 @@
       color: #0ff3ff;
       text-shadow: 0 0 12px #12ff7b54, 0 1px 3px #0ff3ff;
     }
-    /* Flash effects for extreme change */
+    
     .flash-green { background: #28fa482f !important; animation: flashrowg 0.35s linear; }
     .flash-red   { background: #ff496a31 !important; animation: flashrowr 0.35s linear; }
     @keyframes flashrowg { 0% {filter: brightness(1.8);} 100% {filter: brightness(1);} }
@@ -122,7 +122,7 @@
       td,th { padding: 0.45rem 0.17rem; font-size: 0.98em;}
     }
   </style>
-  <!-- Fonts -->
+ 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -138,12 +138,12 @@
         </tr>
       </thead>
       <tbody>
-        <!-- filled via JS -->
+        
       </tbody>
     </table>
   </div>
   <script>
-    // Faux data: for production, fetch from API!
+    
     let stockData = [
       { symbol: 'AAPL', price: 173.20, change: 1.2 },
       { symbol: 'GOOGL', price: 2849.32, change: -0.5 },
@@ -169,7 +169,7 @@
           <td>\$${stock.price.toFixed(2)}</td>
           <td class="${changeClass}">${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}%</td>
         `;
-        // Flash effect for large swing (> 2.8% up or down)
+       
         if (Math.abs(stock.change) > 2.8 && prev && Math.abs(stock.change-prev[i].change) > 0.5) {
           rowFlash(tr, stock.change > 0 ? 'up' : 'down');
         }
@@ -177,21 +177,21 @@
       });
     }
 
-    // Show first render
+   
     renderStocks(stockData);
 
-    // Simulate "intimidating" action: randomly shake the market!
+    
     setInterval(() => {
       const prev = JSON.parse(JSON.stringify(stockData));
       stockData = stockData.map(stock => {
-        let delta = (Math.random() - 0.5) * 4.3; // random high drama
+        let delta = (Math.random() - 0.5) * 4.3; 
         let newPrice = +(stock.price + delta).toFixed(2);
         // Percent change = (new - old) / old * 100
         let pctChange = +(((newPrice - stock.price) / stock.price) * 100 + stock.change).toFixed(2);
         return { ...stock, price: newPrice, change: pctChange };
       });
       renderStocks(stockData, prev);
-    }, 1900); // ~every 1.9 seconds
+    }, 1900); 
   </script>
 </body>
 </html>
