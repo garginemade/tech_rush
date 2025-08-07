@@ -155,24 +155,13 @@ const Home = () => {
         </div>
       </section>
       
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-content">
-          <h2>Ready to Experience the Future of Trading?</h2>
-          <p>Join thousands of traders who trust Quantum Trading Terminal for their investment decisions.</p>
-          
-          <div className="cta-actions">
-            <Link to="/dashboard" className="btn-primary">
-              <span>Get Started</span>
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
+    
     </div>
   );
 };
 
 
+
 export default Home; 
+
 
