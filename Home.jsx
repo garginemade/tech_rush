@@ -130,30 +130,7 @@ const Home = () => {
         </div>
       </section>
       
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-number">94.7%</div>
-            <div className="stat-label">AI Accuracy</div>
-          </div>
-          
-          <div className="stat-card">
-            <div className="stat-number">2.3ms</div>
-            <div className="stat-label">Latency</div>
-          </div>
-          
-          <div className="stat-card">
-            <div className="stat-number">1.2M</div>
-            <div className="stat-label">Ops/Second</div>
-          </div>
-          
-          <div className="stat-card">
-            <div className="stat-number">15K+</div>
-            <div className="stat-label">Markets</div>
-          </div>
-        </div>
-      </section>
+      
       
     
     </div>
@@ -163,5 +140,6 @@ const Home = () => {
 
 
 export default Home; 
+
 
 
