@@ -65,10 +65,10 @@ const Home = () => {
                 <span className="command">quantum_scan --market=all</span>
               </div>
               <div className="terminal-output">
-                <div className="output-line">🔍 Scanning 15,000+ markets...</div>
-                <div className="output-line">📊 Live API Data: 99.9% accuracy</div>
-                <div className="output-line">📈 Top Opportunities: AAPL, TSLA, NVDA</div>
-                <div className="output-line">⚡ Latency: 2.3ms | Throughput: 1.2M ops/s</div>
+                <div className="output-line">Scanning 15,000+ markets...</div>
+                <div className="output-line">Live API Data: 99.9% accuracy</div>
+                <div className="output-line"> Top Opportunities: AAPL, TSLA, NVDA</div>
+                <div className="output-line">Latency: 2.3ms | Throughput: 1.2M ops/s</div>
               </div>
             </div>
           </div>
@@ -172,5 +172,6 @@ const Home = () => {
     </div>
   );
 };
+
 
 export default Home; 
