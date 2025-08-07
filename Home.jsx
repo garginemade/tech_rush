@@ -33,7 +33,7 @@ const Home = () => {
           
           <p className="hero-description">
             The most advanced live API-powered trading platform with real-time market data, 
-            live analytics, and quantum-level performance monitoring.
+            live analytics and performance monitoring.
           </p>
           
           <div className="hero-actions">
@@ -175,3 +175,4 @@ const Home = () => {
 
 
 export default Home; 
+
